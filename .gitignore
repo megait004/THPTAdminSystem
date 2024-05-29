@@ -18,7 +18,6 @@ dist-ssr
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
 *.exe
 *.dll
