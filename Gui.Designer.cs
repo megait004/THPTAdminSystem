@@ -28,7 +28,7 @@
             this.webView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView2.Location = new System.Drawing.Point(0, 0);
             this.webView2.Name = "webView2";
-            this.webView2.Size = new System.Drawing.Size(984, 461);
+            this.webView2.Size = new System.Drawing.Size(1264, 681);
             this.webView2.TabIndex = 0;
             this.webView2.ZoomFactor = 1D;
             // 
@@ -37,10 +37,12 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 461);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.webView2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1280, 720);
+            this.MinimumSize = new System.Drawing.Size(1280, 720);
             this.Name = "Gui";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "THPT Admin System";

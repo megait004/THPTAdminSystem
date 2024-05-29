@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply focus:outline-none;
+  @apply select-none;
+}
+.content {
+  max-height: calc(100vh - 100px);
+}
+th {
+  @apply whitespace-nowrap;
+  @apply border-x;
+  @apply border-indigo-500;
+  @apply px-2;
+}
+tr {
+  @apply border-b;
+  @apply border-indigo-500;
+  @apply table;
+  @apply w-full;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

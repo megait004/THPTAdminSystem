@@ -5,7 +5,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Linq;
+using System.Text.Json;
 namespace THPTAdminSystem
 {
     public partial class Gui : Form
@@ -20,7 +21,7 @@ namespace THPTAdminSystem
         {
             await webView2.EnsureCoreWebView2Async(null);
             StartHttpListener();
-            webView2.CoreWebView2.Navigate("http://localhost:8080/");
+            webView2.CoreWebView2.Navigate("http://localhost:8080");
             webView2.CoreWebView2.WebMessageReceived += OnWebMessageReceived;
         }
 
@@ -96,9 +97,15 @@ namespace THPTAdminSystem
 
         private void OnWebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs args)
         {
-            string message = args.TryGetWebMessageAsString();
-            MessageBox.Show($"{message}");
-            webView2.CoreWebView2.PostWebMessageAsString("abcxyz");
+            API api = new API();
+            string message = args.WebMessageAsJson;
+            string response = "";
+            string type = api.GetType(message);
+            if(type == "login")
+            {
+                response = api.Login(message);
+            }
+            webView2.CoreWebView2.PostWebMessageAsString(response);
         }
     }
 }
