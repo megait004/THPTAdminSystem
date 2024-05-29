@@ -133,8 +133,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\index.html" />
-    <None Include="bin\Debug\index.js" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
