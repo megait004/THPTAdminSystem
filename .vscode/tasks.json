@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "msbuild",
+            "type": "process",
+            "args": [
+                "${workspaceFolder}/THPTAdminSystem.csproj"
+            ],
+            "problemMatcher": [
+                "$msCompile"
+            ]
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/k",
+                "cd react && npm run build && cd .. && cp -r src ./bin/Debug/ && start ${workspaceFolder}/bin/Debug/THPTAdminSystem.exe"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

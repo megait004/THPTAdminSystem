@@ -2,7 +2,7 @@
 
 ### I. Giới thiệu
 
-Sử dụng giữa WinForm và ReactJS, sử dụng WebView2 để tạo giao diện người dùng. Mục tiêu của dự án là cung cấp một trải nghiệm người dùng đẹp hơn, so với ứng dụng WinForm truyền thống. Các ưu điểm chính của dự án bao gồm giao tiếp thông qua API của WebView2 Winform - giao tiếp với Javascript thay vì đẩy dữ liệu lên GridView, sử dụng SQLite để lưu trữ dữ liệu.
+Sử dụng giữa WinForm và ReactJS, sử dụng WebView2 để tạo giao diện người dùng. Mục tiêu của dự án là cung cấp một trải nghiệm người dùng đẹp hơn, so với ứng dụng WinForm truyền thống. Các ưu điểm chính của dự án bao gồm giao tiếp thông qua API của WebView2 Winform - giao tiếp với Javascript thay vì đẩy dữ liệu lên GridView.
 
 ### II. Công nghệ sử dụng
 

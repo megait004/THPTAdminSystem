@@ -31,7 +31,6 @@ appsettings.json
 packages/
 *.log
 tmp/
-src/
 *.DS_Store
 Thumbs.db
 desktop.ini

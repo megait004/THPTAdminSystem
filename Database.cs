@@ -21,40 +21,40 @@ namespace THPTAdminSystem
                 {
                     string initdb =
                         @"
-                    CREATE TABLE IF NOT EXISTS
-                        Account (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            name TEXT NOT NULL,
-                            type BOOL,
-                            username TEXT UNIQUE NOT NULL,
-                            password TEXT NOT NULL,
-                            phonenumber CHAR(12)
-                        );
+                        CREATE TABLE IF NOT EXISTS
+                            Account (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                name TEXT NOT NULL,
+                                type BOOL,
+                                username TEXT UNIQUE NOT NULL,
+                                password TEXT NOT NULL,
+                                phonenumber CHAR(12)
+                            );
 
-                    CREATE TABLE IF NOT EXISTS
-                        Score (
-                            studentID INTEGER,
-                            subject TEXT NOT NULL,
-                            pass BOOL,
-                            score INTEGER,
-                            type CHAR(10),
-                            note TEXT,
-                            FOREIGN KEY (studentID) REFERENCES Account (id)
-                        );
+                        CREATE TABLE IF NOT EXISTS
+                            Score (
+                                studentID INTEGER,
+                                subject TEXT NOT NULL,
+                                pass BOOL,
+                                score INTEGER,
+                                type CHAR(10),
+                                note TEXT,
+                                FOREIGN KEY (studentID) REFERENCES Account (id)
+                            );
 
-                    CREATE TABLE IF NOT EXISTS
-                        Schedule (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Subject1 TEXT,
-                            Subject2 TEXT,
-                            Subject3 TEXT,
-                            Subject4 TEXT,
-                            Subject5 TEXT
-                        );
-                    INSERT or IGNORE INTO
-                        Account (name, type, username, password)
-                    VALUES
-                        ('Giap', 0, 'admin', 'admin');
+                        CREATE TABLE IF NOT EXISTS
+                            Schedule (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                Subject1 TEXT,
+                                Subject2 TEXT,
+                                Subject3 TEXT,
+                                Subject4 TEXT,
+                                Subject5 TEXT
+                            );
+                        INSERT or IGNORE INTO
+                            Account (name, type, username, password)
+                        VALUES
+                            ('Giap', 0, 'admin', 'admin');
                     ";
                     command.CommandText = initdb;
                     command.ExecuteNonQuery();
