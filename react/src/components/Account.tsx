@@ -1,13 +1,14 @@
 import { faUserGraduate } from '@fortawesome/free-solid-svg-icons/faUserGraduate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormEvent, useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const Account = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState('');
   const [warning, setWarning] = useState(false);
   const [phone, setPhone] = useState('');
+  const navigate = useNavigate();
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!password) {
@@ -15,12 +16,27 @@ const Account = () => {
     } else if (password.length < 6) {
       toast.warning('Mật khẩu phải trên 6 kí tự!');
     } else {
-      toast.success('Cập nhật thành công!');
+      let data = {
+        type: 'updateinfo',
+        username: username,
+        password: password,
+        phonenumber: phone,
+      };
+      window.chrome.webview.postMessage(data);
+      toast.success('Đăng xuất sau 2 giây');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     }
   };
   useEffect(() => {
-    setUsername('1231321');
-  });
+    const parsedData = JSON.parse(localStorage.getItem('data') || '{}');
+    if (Object.keys(parsedData).length > 0) {
+      const data: ResponseInfo = JSON.parse(parsedData);
+      setUsername(data.Username);
+      setPhone(data.PhoneNumber);
+    }
+  }, [username]);
   return (
     <div className="w-full">
       <div className="text-3xl font-bold text-indigo-500">
@@ -53,11 +69,11 @@ const Account = () => {
             Tài khoản:
           </label>
           <input
-            value={username}
             name="card"
             id="card"
             type="number"
             className="pointer-events-none w-1/2 select-none rounded-lg border border-indigo-500 px-2 py-1"
+            placeholder={username}
             readOnly
           />
           <label className="font-bold" htmlFor="password">
@@ -80,7 +96,6 @@ const Account = () => {
           </button>
         </form>
       </div>
-      <ToastContainer autoClose={3000} />
     </div>
   );
 };

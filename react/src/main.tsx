@@ -6,6 +6,8 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Account from './components/Account';
 import Home from './components/Home';
 import Bug from './components/Report';
@@ -27,9 +29,29 @@ const routes = createRoutesFromElements(
   </>,
 );
 const router = createBrowserRouter(routes);
-
+declare global {
+  interface Window {
+    chrome: any;
+  }
+  interface ResponseInfo {
+    ID: number;
+    Name: string;
+    Type: boolean;
+    Username: string;
+    Password: string;
+    PhoneNumber: string;
+  }
+}
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ToastContainer
+      autoClose={2000}
+      newestOnTop
+      closeOnClick
+      pauseOnFocusLoss={false}
+      draggable
+      pauseOnHover
+    />
     <RouterProvider router={router} />
   </React.StrictMode>,
 );

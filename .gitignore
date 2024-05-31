@@ -11,8 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-.vscode/*
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo
@@ -23,8 +21,8 @@ dist-ssr
 *.dll
 *.obj
 *.pdb
-
 bin/
+
 obj/
 *.user
 *.suo
@@ -33,7 +31,7 @@ appsettings.json
 packages/
 *.log
 tmp/
-
+src/
 *.DS_Store
 Thumbs.db
 desktop.ini

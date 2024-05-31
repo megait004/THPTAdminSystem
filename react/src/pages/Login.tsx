@@ -1,16 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import Poster from '/poster.png';
-declare global {
-  interface Window {
-    chrome: any;
-  }
-}
 interface Response {
   data: string;
 }
+
 const Login = () => {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [imageHeight, setImageHeight] = useState(0);
@@ -29,15 +24,36 @@ const Login = () => {
         username: username,
         password: password,
       };
+      const getInfo = {
+        type: 'getinfo',
+        username: username,
+      };
       window.chrome.webview.postMessage(data);
       window.chrome.webview.addEventListener('message', (e: Response) => {
-        if (e.data === 'Đăng nhập thành công') {
-          toast.success(e.data);
-          setTimeout(() => {
-            navigate('/home/student');
-          }, 1500);
-        } else {
-          toast.error(e.data);
+        if (e.data) {
+          window.chrome.webview.removeEventListener('message', () => {});
+          if (e.data === 'Đăng nhập thành công') {
+            toast.success(e.data, {
+              toastId: 'success1',
+            });
+            window.chrome.webview.postMessage(getInfo);
+            window.chrome.webview.addEventListener('message', (e: any) => {
+              localStorage.setItem('data', JSON.stringify(e.data));
+              if (e.data) {
+                setTimeout(() => {
+                  navigate('/home/student');
+                }, 1000);
+                window.chrome.webview.removeEventListener('message', () => {});
+              }
+            });
+          } else if (e.data === 'Đăng nhập thất bại') {
+            localStorage.clear();
+            toast.error(e.data, {
+              toastId: 'error1',
+            });
+          } else {
+            console.log(e.data);
+          }
         }
       });
     }
@@ -107,7 +123,6 @@ const Login = () => {
           </span>
         </div>
       </div>
-      <ToastContainer autoClose={1500} />
     </div>
   );
 };

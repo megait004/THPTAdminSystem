@@ -31,6 +31,7 @@
             this.webView2.Size = new System.Drawing.Size(1264, 681);
             this.webView2.TabIndex = 0;
             this.webView2.ZoomFactor = 1D;
+            this.webView2.Click += new System.EventHandler(this.webView2_Click);
             // 
             // Gui
             // 
@@ -46,6 +47,7 @@
             this.Name = "Gui";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "THPT Admin System";
+            this.Load += new System.EventHandler(this.Gui_Load);
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).EndInit();
             this.ResumeLayout(false);
 

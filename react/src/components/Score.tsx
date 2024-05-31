@@ -17,14 +17,16 @@ const Score = () => {
           ref={tableRef}
           className="table w-full border-t border-indigo-500"
         >
-          <tr>
-            <th style={{ width: `${tableSize / 20}px` }}>Số thứ tự</th>
-            <th style={{ width: `${(tableSize / 5) * 2}px` }}>Tên môn học</th>
-            <th style={{ width: `${tableSize / 20}px` }}>Được dự thi</th>
-            <th style={{ width: `${tableSize / 20}px` }}>Điểm</th>
-            <th style={{ width: `${tableSize / 20}px` }}>Xếp loại</th>
-            <th style={{ width: `${(tableSize / 5) * 2}px` }}>Ghi chú</th>
-          </tr>
+          <thead>
+            <tr>
+              <th style={{ width: `${tableSize / 20}px` }}>Số thứ tự</th>
+              <th style={{ width: `${(tableSize / 5) * 2}px` }}>Tên môn học</th>
+              <th style={{ width: `${tableSize / 20}px` }}>Được dự thi</th>
+              <th style={{ width: `${tableSize / 20}px` }}>Điểm</th>
+              <th style={{ width: `${tableSize / 20}px` }}>Xếp loại</th>
+              <th style={{ width: `${(tableSize / 5) * 2}px` }}>Ghi chú</th>
+            </tr>
+          </thead>
         </table>
       </div>
     </div>

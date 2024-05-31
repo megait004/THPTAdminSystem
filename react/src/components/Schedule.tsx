@@ -8,14 +8,16 @@ const Schedule = () => {
       </div>
       <div className="content mt-2 w-full overflow-auto text-indigo-500">
         <table className="table w-full border-t border-indigo-500">
-          <tr>
-            <th>Thứ 2</th>
-            <th>Thứ 3</th>
-            <th>Thứ 4</th>
-            <th>Thứ 5</th>
-            <th>Thứ 6</th>
-            <th>Thứ 7</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Thứ 2</th>
+              <th>Thứ 3</th>
+              <th>Thứ 4</th>
+              <th>Thứ 5</th>
+              <th>Thứ 6</th>
+              <th>Thứ 7</th>
+            </tr>
+          </thead>
         </table>
       </div>
     </div>

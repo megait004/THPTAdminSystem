@@ -9,11 +9,23 @@ import {
   faUserPen,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Logo from '/avatar.png';
+
 const Dashboard = () => {
   const [notification, setNotification] = useState(false);
+  const [name, setName] = useState('');
+  useEffect(() => {
+    const parsedData = JSON.parse(localStorage.getItem('data') || '{}');
+    if (Object.keys(parsedData).length > 0) {
+      const data: ResponseInfo = JSON.parse(parsedData);
+      if (parsedData) {
+        setName(data.Name);
+      }
+    }
+  }, []);
+
   const navigate = useNavigate();
   return (
     <div className="flex h-full w-full flex-col">
@@ -23,8 +35,8 @@ const Dashboard = () => {
             src={Logo}
             className="my-4 cursor-pointer self-center rounded-full hover:scale-105 hover:drop-shadow-2xl"
           />
-          <div className="mb-4 max-w-full truncate whitespace-nowrap rounded-lg bg-white p-1 text-indigo-500 hover:max-w-max hover:drop-shadow-2xl">
-            <FontAwesomeIcon icon={faFaceMehBlank} /> <b>Nguyễn Văn A</b>
+          <div className="mb-4 flex w-full max-w-full flex-col items-center justify-center self-center truncate whitespace-nowrap rounded-lg bg-white p-1 text-indigo-500 hover:drop-shadow-2xl">
+            <FontAwesomeIcon icon={faFaceMehBlank} /> <b>{name}</b>
           </div>
           <div
             className="cursor-pointer  hover:scale-110 hover:drop-shadow-2xl"

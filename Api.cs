@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-
-
 namespace THPTAdminSystem
 {
     internal class API
@@ -31,28 +29,59 @@ namespace THPTAdminSystem
                         receivedPassword = keyPassword.GetString();
                     }
                 }
-
-                string usernameDb = "admin";
-                string passwordDb = "admin";
-                if (receivedUsername == usernameDb)
-                {
-                    if (receivedPassword == passwordDb)
-                    {
-                        return "Đăng nhập thành công";
-                    }
-                    else
-                    {
-                        return "Sai mật khẩu!";
-                    }
-                }
-                else
-                {
-                    return "Tài khoản không tồn tại!";
-                }
+                Database db = new Database();
+                string response = db.Login(receivedUsername, receivedPassword);
+                return response;
             }
             else
             {
                 return "Lỗi không xác định";
+            }
+        }
+        public string GetInfo(string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                JsonElement data = JsonSerializer.Deserialize<dynamic>(message);
+                string receivedUsername = "";
+                if (data.TryGetProperty("username", out JsonElement keyUserName))
+                {
+                    receivedUsername = keyUserName.GetString();
+                }
+                Database db = new Database();
+                string response = db.GetInfo(receivedUsername);
+                return response;
+            }
+            else
+            {
+                return "Lỗi không xác định";
+            }
+        }
+        public void UpdateInfo(string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                JsonElement data = JsonSerializer.Deserialize<dynamic>(message);
+                string receivedUsername = "";
+                string receivedPassword = "";
+                string receivedPhonenumber = "";
+                if (data.TryGetProperty("username", out JsonElement keyUserName))
+                {
+                    receivedUsername = keyUserName.GetString();
+                    if (data.TryGetProperty("password", out JsonElement keyPassword))
+                    {
+                        receivedPassword = keyPassword.GetString();
+                    }
+                    if (data.TryGetProperty("phonenumber", out JsonElement keyPhonenumber))
+                    {
+                        receivedPhonenumber = keyPhonenumber.GetString();
+                    }
+                }
+                Database db = new Database();
+                db.UpdateInfo(receivedUsername, receivedPassword, receivedPhonenumber);
+            }
+            else
+            {
             }
         }
     }
