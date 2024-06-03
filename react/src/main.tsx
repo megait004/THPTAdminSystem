@@ -10,12 +10,15 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Account from './components/Account';
 import Home from './components/Home';
+import ListStudent from './components/ListStudent';
 import Bug from './components/Report';
 import Schedule from './components/Schedule';
 import Score from './components/Score';
+import SetScore from './components/SetScore';
 import './index.css';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import TeacherDashboard from './pages/TeacherDashboard';
 const routes = createRoutesFromElements(
   <>
     <Route path="/" element={<Login />} />
@@ -25,6 +28,13 @@ const routes = createRoutesFromElements(
       <Route path="schedule" element={<Schedule />} />
       <Route path="account" element={<Account />} />
       <Route path="report" element={<Bug />} />
+    </Route>
+    <Route path="/teacher" element={<TeacherDashboard />}>
+      <Route path="home" element={<Home />} />
+      <Route path="list-student" element={<ListStudent />} />
+      <Route path="schedule" element={<Schedule />} />
+      <Route path="account" element={<Account />} />
+      <Route path="set-score" element={<SetScore />} />
     </Route>
   </>,
 );

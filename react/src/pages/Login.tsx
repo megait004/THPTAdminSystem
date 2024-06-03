@@ -5,7 +5,6 @@ import Poster from '/poster.png';
 interface Response {
   data: string;
 }
-
 const Login = () => {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const [imageHeight, setImageHeight] = useState(0);
@@ -29,6 +28,7 @@ const Login = () => {
         username: username,
       };
       window.chrome.webview.postMessage(data);
+
       window.chrome.webview.addEventListener('message', (e: Response) => {
         if (e.data) {
           window.chrome.webview.removeEventListener('message', () => {});
@@ -37,15 +37,33 @@ const Login = () => {
               toastId: 'success1',
             });
             window.chrome.webview.postMessage(getInfo);
-            window.chrome.webview.addEventListener('message', (e: any) => {
-              localStorage.setItem('data', JSON.stringify(e.data));
-              if (e.data) {
-                setTimeout(() => {
-                  navigate('/home/student');
-                }, 1000);
-                window.chrome.webview.removeEventListener('message', () => {});
-              }
-            });
+            window.chrome.webview.addEventListener(
+              'message',
+              (e: any) => {
+                localStorage.setItem('data', JSON.stringify(e.data));
+                if (e.data) {
+                  const parsedData = JSON.parse(
+                    localStorage.getItem('data') || '{}',
+                  );
+                  if (Object.keys(parsedData).length > 0) {
+                    const data: ResponseInfo = JSON.parse(parsedData);
+                    if (parsedData) {
+                      const type = data.Type;
+                      if (type) {
+                        setTimeout(() => {
+                          navigate('/home/student');
+                        }, 1000);
+                      } else {
+                        setTimeout(() => {
+                          navigate('/teacher/home');
+                        }, 1000);
+                      }
+                    }
+                  }
+                }
+              },
+              [],
+            );
           } else if (e.data === 'Đăng nhập thất bại') {
             localStorage.clear();
             toast.error(e.data, {
@@ -63,6 +81,7 @@ const Login = () => {
     window.addEventListener('resize', () => {
       setScreenHeight(window.innerHeight), setImageHeight(screenHeight - 200);
     });
+    window.localStorage.removeItem('loaded');
   });
   return (
     <div
@@ -94,6 +113,7 @@ const Login = () => {
             name="username"
             id="username"
             placeholder="Tài khoản"
+            autoComplete="off"
           />
           <label
             className="text-lg font-semibold text-indigo-500"

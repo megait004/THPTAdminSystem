@@ -84,5 +84,11 @@ namespace THPTAdminSystem
             {
             }
         }
+        public string GetListStudent()
+        {
+            Database db = new Database();
+            string message = db.GetListStudent();
+            return message;
+        }
     }
 }

@@ -3,14 +3,15 @@
     "tasks": [
         {
             "label": "build",
-            "command": "msbuild",
+            "command": "dotnet",
             "type": "process",
             "args": [
-                "${workspaceFolder}/THPTAdminSystem.csproj"
+                "build",
+                "${workspaceFolder}/THPTAdminSystem.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
-            "problemMatcher": [
-                "$msCompile"
-            ]
+            "problemMatcher": "$msCompile"
         },
         {
             "label": "run",
@@ -18,9 +19,43 @@
             "command": "cmd",
             "args": [
                 "/k",
-                "cd react && npm run build && cd .. && cp -r src ./bin/Debug/ && start ${workspaceFolder}/bin/Debug/THPTAdminSystem.exe"
+                "cd react && npm run build && cd .. && cp -r src ./bin/Debug/ && start ${workspaceFolder}/bin/Debug/THPTAdminSystem.exe&&exit"
             ],
             "problemMatcher": []
+        },
+        {
+            "label": "build&run",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/k",
+                "msbuild ${workspaceFolder}/THPTAdminSystem.csproj && cd react && npm run build && cd .. && cp -r src ./bin/Debug/ && start ${workspaceFolder}/bin/Debug/THPTAdminSystem.exe&&exit"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/THPTAdminSystem.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/THPTAdminSystem.sln"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

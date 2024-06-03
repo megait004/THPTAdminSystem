@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Data.SQLite;
-
+using System.Text.Json;
+using System.Collections.Generic;
 namespace THPTAdminSystem
 {
     internal class Database
@@ -150,5 +151,61 @@ namespace THPTAdminSystem
             {
             }
         }
+        public string GetListStudent()
+        {
+            List<Student> students = new List<Student>();
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand command = connection.CreateCommand())
+                {
+                    command.CommandText =
+                    @"SELECT
+                        USERNAME,
+                        NAME,
+                        PHONENUMBER
+                    FROM
+                        ACCOUNT
+                    WHERE
+                        TYPE = 1;";
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            try
+                            {
+                                var student = new Student
+                                {
+                                    Username = reader.GetString(reader.GetOrdinal("USERNAME")),
+                                    Name = reader.GetString(reader.GetOrdinal("NAME")),
+                                    PhoneNumber = reader.GetString(reader.GetOrdinal("PHONENUMBER"))
+                                };
+                                students.Add(student);
+                            }
+                            catch
+                            {
+                                var student = new Student
+                                {
+                                    Username = reader.GetString(reader.GetOrdinal("USERNAME")),
+                                    Name = reader.GetString(reader.GetOrdinal("NAME")),
+                                    PhoneNumber = ""
+                                };
+                                students.Add(student);
+                            }
+                        }
+                    }
+                }
+            }
+            string jsonString = JsonSerializer.Serialize(students);
+            return jsonString;
+        }
+
+        public class Student
+        {
+            public string Username { get; set; }
+            public string Name { get; set; }
+            public string PhoneNumber { get; set; }
+        }
+
     }
 }
