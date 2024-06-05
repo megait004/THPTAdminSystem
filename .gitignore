@@ -42,4 +42,3 @@ desktop.ini
 *.orig
 *.rej
 package-lock.json
-src/
