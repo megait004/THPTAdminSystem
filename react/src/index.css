@@ -9,11 +9,14 @@
 .content {
   max-height: calc(100vh - 100px);
 }
-th {
+th,
+td {
   @apply whitespace-nowrap;
   @apply border-x;
   @apply border-indigo-500;
   @apply px-2;
+  @apply text-center;
+  @apply font-bold;
 }
 tr {
   @apply border-b;
@@ -26,4 +29,18 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  @apply h-1;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-r from-indigo-400 to-indigo-500;
+  @apply w-1;
+  @apply rounded-full;
 }

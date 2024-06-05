@@ -65,7 +65,7 @@ const TeacherDashboard = () => {
             <FontAwesomeIcon icon={faUserPen} /> <b>Tài khoản</b>
           </div>
         </div>
-        <div className="flex w-full flex-col">
+        <div className="flex w-full max-w-full flex-col">
           <div className="sticky flex w-full items-center justify-end bg-white px-3 py-1 shadow-lg">
             <div
               className="cursor-pointer"
@@ -79,12 +79,15 @@ const TeacherDashboard = () => {
             </div>
             <div
               className="cursor-pointer rounded-lg px-2 py-2 font-bold text-indigo-500 hover:bg-indigo-600 hover:text-white"
-              onClick={() => navigate('/')}
+              onClick={() => {
+                navigate('/');
+                localStorage.clear();
+              }}
             >
               Đăng xuất
             </div>
           </div>
-          <div className="flex w-full bg-white p-2">
+          <div className="flex w-full bg-white object-cover p-2">
             <Outlet />
           </div>
         </div>

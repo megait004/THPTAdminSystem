@@ -17,6 +17,10 @@ const Dashboard = () => {
   const [notification, setNotification] = useState(false);
   const [name, setName] = useState('');
   useEffect(() => {
+    if (!localStorage.getItem('loaded')) {
+      localStorage.setItem('loaded', 'true');
+      window.location.reload();
+    }
     const parsedData = JSON.parse(localStorage.getItem('data') || '{}');
     if (Object.keys(parsedData).length > 0) {
       const data: ResponseInfo = JSON.parse(parsedData);
@@ -83,7 +87,10 @@ const Dashboard = () => {
             </div>
             <div
               className="cursor-pointer rounded-lg px-2 py-2 font-bold text-indigo-500 hover:bg-indigo-600 hover:text-white"
-              onClick={() => navigate('/')}
+              onClick={() => {
+                navigate('/');
+                localStorage.clear();
+              }}
             >
               Đăng xuất
             </div>

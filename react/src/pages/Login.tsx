@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const handleSubmit = (e: FormEvent) => {
+    localStorage.clear();
     e.preventDefault();
     if (username === '') {
       toast.warning('Vui lòng nhập tài khoản!');
@@ -23,58 +24,63 @@ const Login = () => {
         username: username,
         password: password,
       };
-      const getInfo = {
-        type: 'getinfo',
-        username: username,
-      };
       window.chrome.webview.postMessage(data);
 
       window.chrome.webview.addEventListener('message', (e: Response) => {
         if (e.data) {
           window.chrome.webview.removeEventListener('message', () => {});
           if (e.data === 'Đăng nhập thành công') {
+            getInfo(username);
             toast.success(e.data, {
               toastId: 'success1',
             });
-            window.chrome.webview.postMessage(getInfo);
-            window.chrome.webview.addEventListener(
-              'message',
-              (e: any) => {
-                localStorage.setItem('data', JSON.stringify(e.data));
-                if (e.data) {
-                  const parsedData = JSON.parse(
-                    localStorage.getItem('data') || '{}',
-                  );
-                  if (Object.keys(parsedData).length > 0) {
-                    const data: ResponseInfo = JSON.parse(parsedData);
-                    if (parsedData) {
-                      const type = data.Type;
-                      if (type) {
-                        setTimeout(() => {
-                          navigate('/home/student');
-                        }, 1000);
-                      } else {
-                        setTimeout(() => {
-                          navigate('/teacher/home');
-                        }, 1000);
-                      }
-                    }
-                  }
-                }
-              },
-              [],
-            );
           } else if (e.data === 'Đăng nhập thất bại') {
             localStorage.clear();
             toast.error(e.data, {
               toastId: 'error1',
             });
-          } else {
-            console.log(e.data);
           }
         }
       });
     }
+  };
+  const getInfo = (username: string) => {
+    const getInfo = {
+      type: 'getinfo',
+      username: username,
+    };
+    window.chrome.webview.postMessage(getInfo);
+    window.chrome.webview.addEventListener('message', (e: any) => {
+      window.chrome.webview.removeEventListener('message', () => {});
+      if (!localStorage.getItem('data')) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('data', JSON.stringify(e.data));
+      }
+      if (e.data) {
+        window.chrome.webview.removeEventListener('message', () => {});
+        const parsedData = JSON.parse(localStorage.getItem('data') || '{}');
+        if (Object.keys(parsedData).length > 0) {
+          const data: ResponseInfo = JSON.parse(parsedData);
+          if (parsedData) {
+            const type = data.Type;
+            if (type) {
+              setTimeout(() => {
+                navigate('/home/student');
+              }, 1000);
+            } else {
+              setTimeout(() => {
+                navigate('/teacher/home');
+              }, 1000);
+            }
+          } else {
+            return;
+          }
+        }
+      }
+    });
+    return () => {
+      window.chrome.webview.removeEventListener('message', () => {});
+    };
   };
   useEffect(() => {
     setImageHeight(screenHeight - 200);
@@ -97,7 +103,7 @@ const Login = () => {
         </div>
         <div className="flex flex-col">
           <h1 className="mb-5 text-2xl font-semibold text-indigo-500">
-            Chào mừng đến với
+            Chào mừng đến với THPT OvFTeam
           </h1>
           <label
             className="text-lg font-semibold text-indigo-500"
@@ -138,6 +144,17 @@ const Login = () => {
           >
             Đăng nhập
           </button>
+          <p>
+            Chưa có tài khoản? hãy{' '}
+            <b
+              className="cursor-pointer text-indigo-500"
+              onClick={() => {
+                navigate('/signup');
+              }}
+            >
+              Đăng kí ngay
+            </b>
+          </p>
           <span className="m-auto text-gray-600">
             &#169; Copyright 2024 OvFTeam
           </span>

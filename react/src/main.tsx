@@ -18,9 +18,11 @@ import SetScore from './components/SetScore';
 import './index.css';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import RegAccount from './pages/RegAccount';
 import TeacherDashboard from './pages/TeacherDashboard';
 const routes = createRoutesFromElements(
   <>
+    <Route path="/signup" element={<RegAccount />} />
     <Route path="/" element={<Login />} />
     <Route path="/home" element={<Dashboard />}>
       <Route path="student" element={<Home />} />

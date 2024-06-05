@@ -21,7 +21,7 @@ namespace THPTAdminSystem
         {
             await webView2.EnsureCoreWebView2Async(null);
             StartHttpListener();
-            webView2.CoreWebView2.Navigate("http://localhost:5173/");
+            webView2.CoreWebView2.Navigate("http://localhost:8080/");
             webView2.CoreWebView2.WebMessageReceived += OnWebMessageReceived;
         }
 
@@ -117,6 +117,34 @@ namespace THPTAdminSystem
             if (type == "getstudent")
             {
                 string response = api.GetListStudent();
+                webView2.CoreWebView2.PostWebMessageAsString(response);
+            }
+            if (type == "getschedule")
+            {
+                string response = api.GetSchedule();
+                webView2.CoreWebView2.PostWebMessageAsString(response);
+            }
+            if (type == "updateschedule")
+            {
+                api.UpdateSchedule(message);
+            }
+            if (type == "getscore")
+            {
+                string response = api.GetScore(message);
+                webView2.CoreWebView2.PostWebMessageAsString(response);
+            }
+
+            if (type == "deletescore")
+            {
+                api.DeleteScore(message);
+            }
+            if (type == "addscore")
+            {
+                api.AddScore(message);
+            }
+            if (type == "signup")
+            {
+                string response = api.AddStudent(message);
                 webView2.CoreWebView2.PostWebMessageAsString(response);
             }
         }
