@@ -15,16 +15,16 @@ const Home = () => {
     'chore: add signup page',
   ];
   return (
-    <div className="">
+    <div className="w-full">
       <div className="text-3xl font-bold text-indigo-500">
         <FontAwesomeIcon icon={faFire} /> Thông báo
       </div>
-      <div className="content overflow-auto text-indigo-500">
-        <p>Lịch sử cập nhật:</p>
+      <div className="content w-full overflow-auto text-indigo-500">
+        <p className="text-2xl">Lịch sử cập nhật:</p>
         <ul>
           {historyCommit.map((commit, index) => (
             <li>
-              <b>{index + 1}</b>
+              <b className="mr-2">{index + 1}.</b>
               {commit}.
             </li>
           ))}

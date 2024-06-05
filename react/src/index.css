@@ -33,6 +33,7 @@ input::-webkit-inner-spin-button {
 
 ::-webkit-scrollbar {
   @apply h-1;
+  @apply w-1;
 }
 
 ::-webkit-scrollbar-track {
@@ -42,5 +43,6 @@ input::-webkit-inner-spin-button {
 ::-webkit-scrollbar-thumb {
   @apply bg-gradient-to-r from-indigo-400 to-indigo-500;
   @apply w-1;
+  @apply h-1/2;
   @apply rounded-full;
 }
