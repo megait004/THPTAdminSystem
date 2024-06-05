@@ -52,7 +52,10 @@ namespace THPTAdminSystem
                         {
                             filePath = Path.Combine(filePath, "index.html");
                         }
-
+                        else if (!File.Exists(filePath))
+                        {
+                            filePath = Path.Combine(websiteFolder, "index.html");
+                        }
                         if (File.Exists(filePath))
                         {
                             string extension = Path.GetExtension(filePath).ToLower();
@@ -73,6 +76,7 @@ namespace THPTAdminSystem
                         response.OutputStream.Close();
                     }
                 });
+
             }
             else
             {
