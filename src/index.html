@@ -1,35 +1,33 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>THPT Admin System</title>
-    <script type="module" crossorigin src="/assets/index-BqvLyDRf.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C9k_HL6G.css">
+    <script type="module" crossorigin src="/assets/index-fgmrlYR9.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C-Hyn_Tz.css">
   </head>
 
   <body>
     <div id="root" class="max-h-screen overflow-hidden"></div>
     <script>
-      document.addEventListener("contextmenu", (e) => {
+      document.addEventListener('contextmenu', (e) => {
         e.preventDefault();
       });
 
-      document.addEventListener("keydown", (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "I") {
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
           e.preventDefault();
         }
-        if (e.key === "F12") {
+        if (e.key === 'F12') {
           e.preventDefault();
           displayMessage();
         }
       });
 
-
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'F5' || e.ctrlKey && e.key === 'r') {
+        if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
           e.preventDefault();
         }
       });
@@ -40,14 +38,13 @@
         }
       });
 
-      document.addEventListener("copy", (e) => {
+      document.addEventListener('copy', (e) => {
         e.preventDefault();
       });
 
-      document.addEventListener("cut", (e) => {
+      document.addEventListener('cut', (e) => {
         e.preventDefault();
       });
     </script>
   </body>
-
 </html>

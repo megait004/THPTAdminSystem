@@ -21,7 +21,7 @@ namespace THPTAdminSystem
         {
             await webView2.EnsureCoreWebView2Async(null);
             StartHttpListener();
-            webView2.CoreWebView2.Navigate("http://localhost:5173/");
+            webView2.CoreWebView2.Navigate("http://localhost:8080/");
             webView2.CoreWebView2.WebMessageReceived += OnWebMessageReceived;
         }
 
