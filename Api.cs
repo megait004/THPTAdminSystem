@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Text.Json;
+﻿using System.Text.Json;
 namespace THPTAdminSystem
 {
     internal class API

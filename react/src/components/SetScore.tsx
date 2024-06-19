@@ -17,7 +17,7 @@ interface ModalProps {
   name?: string;
 }
 const SetScore = () => {
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -44,7 +44,7 @@ const SetScore = () => {
   };
 
   useEffect(() => {
-    setUserName(searchParams.get('student') || '');
+    setUsername(searchParams.get('student') || '');
     setName(searchParams.get('name') || '');
     setTableSize(tableRef.current?.clientWidth || 0);
     window.chrome.webview.postMessage({

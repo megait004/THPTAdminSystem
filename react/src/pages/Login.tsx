@@ -28,6 +28,7 @@ const Login = () => {
 
       window.chrome.webview.addEventListener('message', (e: Response) => {
         if (e.data) {
+          localStorage.clear();
           window.chrome.webview.removeEventListener('message', () => {});
           if (e.data === 'Đăng nhập thành công') {
             getInfo(username);

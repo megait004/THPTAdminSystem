@@ -20,49 +20,49 @@ namespace THPTAdminSystem
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    string initdb =
+                    string InitializeDatabase =
                         @"
                         CREATE TABLE IF NOT EXISTS
                             Account (
-                                name TEXT NOT NULL,
-                                type BOOL,
-                                username TEXT UNIQUE NOT NULL,
-                                password TEXT NOT NULL,
-                                phonenumber CHAR(12)
+                                NAME TEXT NOT NULL,
+                                TYPE BOOL,
+                                USERNAME TEXT UNIQUE NOT NULL,
+                                PASSWORD TEXT NOT NULL,
+                                PHONE_NUMBER CHAR(12)
                             );
 
                         CREATE TABLE IF NOT EXISTS
                             Score (
-                                studentID TEXT,
-                                subject TEXT NOT NULL UNIQUE,
-                                pass BOOL,
-                                score INTEGER,
-                                type CHAR(10),
-                                note TEXT,
-                                FOREIGN KEY (studentID) REFERENCES Account (username)
+                                STUDENTID TEXT,
+                                SUBJECT TEXT NOT NULL UNIQUE,
+                                PASS BOOL,
+                                SCORE INTEGER,
+                                TYPE CHAR(10),
+                                NOTE TEXT,
+                                FOREIGN KEY (STUDENTID) REFERENCES ACCOUNT (USERNAME)
                             );
 
                         CREATE TABLE IF NOT EXISTS
                             Schedule (
-                                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                Subject1 TEXT,
-                                Subject2 TEXT,
-                                Subject3 TEXT,
-                                Subject4 TEXT,
-                                Subject5 TEXT
+                                ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                SUBJECT1 TEXT,
+                                SUBJECT2 TEXT,
+                                SUBJECT3 TEXT,
+                                SUBJECT4 TEXT,
+                                SUBJECT5 TEXT
                             );
                         INSERT or IGNORE INTO
-                            Account (name, type, username, password)
+                            Account (NAME, TYPE, USERNAME, PASSWORD)
                         VALUES
                             ('Giap', 0, 'admin', 'admin');
                         INSERT or IGNORE INTO
                             Schedule (
-                                id,
-                                Subject1,
-                                Subject2,
-                                Subject3,
-                                Subject4,
-                                Subject5
+                                ID,
+                                SUBJECT1,
+                                SUBJECT2,
+                                SUBJECT3,
+                                SUBJECT4,
+                                SUBJECT5
                             )
                         VALUES
                             (2, '', '', '', '', ''),
@@ -72,7 +72,7 @@ namespace THPTAdminSystem
                             (6, '', '', '', '', ''),
                             (7, '', '', '', '', '');
                     ";
-                    command.CommandText = initdb;
+                    command.CommandText = InitializeDatabase;
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -86,7 +86,7 @@ namespace THPTAdminSystem
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM Account WHERE username = @username AND password = @password";
+                    command.CommandText = "SELECT * FROM Account WHERE USERNAME = @username AND PASSWORD = @password";
                     command.Parameters.AddWithValue("@username", username);
                     command.Parameters.AddWithValue("@password", password);
                     using (SQLiteDataReader reader = command.ExecuteReader())
@@ -113,23 +113,23 @@ namespace THPTAdminSystem
                 connection.Open();
                 using (SQLiteCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM Account WHERE username = @username";
+                    command.CommandText = "SELECT * FROM Account WHERE USERNAME = @username";
                     command.Parameters.AddWithValue("@username", username);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            bool type = reader.GetBoolean(reader.GetOrdinal("type"));
-                            string name = reader.GetString(reader.GetOrdinal("name"));
-                            string usernameDB = reader.GetString(reader.GetOrdinal("username"));
-                            string password = reader.GetString(reader.GetOrdinal("password"));
-                            string phonenumber = "";
+                            bool type = reader.GetBoolean(reader.GetOrdinal("TYPE"));
+                            string name = reader.GetString(reader.GetOrdinal("NAME"));
+                            string usernameDB = reader.GetString(reader.GetOrdinal("USERNAME"));
+                            string password = reader.GetString(reader.GetOrdinal("PASSWORD"));
+                            string phone_number = "";
                             try
                             {
-                                phonenumber = reader.GetString(reader.GetOrdinal("phonenumber"));
+                                phone_number = reader.GetString(reader.GetOrdinal("PHONE_NUMBER"));
                             }
                             catch { }
-                            string response = $"{{ \"Type\": {type.ToString().ToLower()}, \"Name\": \"{name}\", \"Username\": \"{usernameDB}\", \"Password\": \"{password}\", \"PhoneNumber\": \"{phonenumber}\" }}";
+                            string response = $"{{ \"Type\": {type.ToString().ToLower()}, \"Name\": \"{name}\", \"Username\": \"{usernameDB}\", \"Password\": \"{password}\", \"PhoneNumber\": \"{phone_number}\" }}";
                             connection.Close();
                             return response;
                         }
@@ -143,7 +143,7 @@ namespace THPTAdminSystem
             }
         }
 
-        public void UpdateInfo(string username, string password, string phonenumber)
+        public void UpdateInfo(string username, string password, string phone_number)
         {
             try
             {
@@ -152,10 +152,10 @@ namespace THPTAdminSystem
                     connection.Open();
                     using (SQLiteCommand command = connection.CreateCommand())
                     {
-                        command.CommandText = "UPDATE Account SET password = @password, phonenumber = @phonenumber WHERE username = @username";
+                        command.CommandText = "UPDATE Account SET PASSWORD = @password, PHONE_NUMBER = @phone_number WHERE USERNAME = @username";
                         command.Parameters.AddWithValue("@username", username);
                         command.Parameters.AddWithValue("@password", password);
-                        command.Parameters.AddWithValue("@phonenumber", phonenumber);
+                        command.Parameters.AddWithValue("@phone_number", phone_number);
                         command.ExecuteNonQuery();
                     }
                     connection.Close();
@@ -163,6 +163,8 @@ namespace THPTAdminSystem
             }
             catch
             {
+
+                throw;
             }
         }
         public string GetListStudent()
@@ -177,7 +179,7 @@ namespace THPTAdminSystem
                     @"SELECT
                         USERNAME,
                         NAME,
-                        PHONENUMBER
+                        PHONE_NUMBER
                     FROM
                         ACCOUNT
                     WHERE
@@ -192,7 +194,7 @@ namespace THPTAdminSystem
                                 {
                                     Username = reader.GetString(reader.GetOrdinal("USERNAME")),
                                     Name = reader.GetString(reader.GetOrdinal("NAME")),
-                                    PhoneNumber = reader.GetString(reader.GetOrdinal("PHONENUMBER"))
+                                    PhoneNumber = reader.GetString(reader.GetOrdinal("PHONE_NUMBER"))
                                 };
                                 students.Add(student);
                             }
@@ -280,6 +282,7 @@ namespace THPTAdminSystem
             }
             catch
             {
+                throw;
             }
         }
 
@@ -313,6 +316,7 @@ namespace THPTAdminSystem
                             }
                             catch
                             {
+                                throw;
                             }
                         }
                     }

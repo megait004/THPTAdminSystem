@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-
 namespace THPTAdminSystem
 {
     internal static class Program

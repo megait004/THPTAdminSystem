@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -16,15 +17,15 @@
         e.preventDefault();
       });
 
-      document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
-          e.preventDefault();
-        }
-        if (e.key === 'F12') {
-          e.preventDefault();
-          displayMessage();
-        }
-      });
+      // document.addEventListener('keydown', (e) => {
+      //   if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+      //     e.preventDefault();
+      //   }
+      //   if (e.key === 'F12') {
+      //     e.preventDefault();
+      //     displayMessage();
+      //   }
+      // });
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
@@ -47,4 +48,5 @@
       });
     </script>
   </body>
+
 </html>
